@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { computed, nextTick, onMounted, onUnmounted, ref } from 'vue'
 import MarkdownIt from 'markdown-it'
 import hljs from 'highlight.js'
 import DOMPurify from 'dompurify'
@@ -65,6 +65,9 @@ async function loadFilePath(path: string) {
 
     const parts = path.split(/[\\/]/)
     fileName.value = parts[parts.length - 1]
+
+    await nextTick()
+    window.scrollTo({ top: 0, left: 0 })
   } catch (error) {
     console.error('Error al leer el archivo:', error)
   }
